@@ -1,0 +1,240 @@
+<%- include('header.html') -%>
+<%- include('side_bar.html') -%>
+<div class="container-fluid mt-5">
+
+       <button type="button" class="btn btn-primary m-md-3" data-bs-toggle="modal" data-bs-target="#myModal" onclick="show_mode();">
+           Booking Now
+         </button
+   
+        >
+
+   
+         
+
+           <!-- DataTales Example -->
+           <div class="card shadow mb-4">    
+               <div class="card-header py-3">
+                   <h6 class="m-0 font-weight-bold text-primary">Customers</h6>
+               </div>
+               <div class="card-body">
+                   <div class="table-responsive">
+                       <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                           <thead>
+                               <tr>
+                                   <th>Customer Name</th>
+                                   <th>Customer Phone</th>
+                                   <th>Flight</th>
+                                   <th>Source</th>
+                                   <th>Destination</th>
+                                   <th>Amount</th>
+                                   <th>Book Date</th>
+                                   <th>Action</th>
+                         
+                               </tr>
+                           </thead>
+                         
+                           <tbody>
+                               <% data.forEach( function(d){ %>
+                                   <tr>
+                                       <td><%= d.patient_name %></td>
+                                       <td><%= d.patient_phone %></td>
+                                       <td><%= d.doctor.name %></td> 
+                                      
+                                       <td><%= d.source %></td>  
+                                       <td><%= d.distination %></td>  
+                                       <td><%= d.amount %></td>  
+                                       <td> <%= moment(d.booking_Date).format("DD-MMM-YYYY") %></td> 
+                                    <td> <span  class="btn btn-warning" onclick="edit(`<%= d._id%>`,`<%= d.patient_name%>`,`<%= d.patient_phone%>`,`<%= d.source%>`,`<%= d.source%>`,`<%= d.distination%>`,`<%= d.amount%>`,)"><i class="fa fa-edit text-light  text-center"></span>
+                                        <span  class="btn btn-danger " onclick="edit(`<%= d._id%>`,`<%= d.name%>`,`<%= d.desc%>`,`<%= d.user_name%>`,`<%= d.password%>`)"><i class="fa fa-trash text-light  text-center"></i> </span>
+                                    </td>
+                                   
+                                 
+                                   </tr> 
+                              <% })%>
+                              
+                           </tbody>
+                       </table>
+                   </div>
+               </div>
+           </div>
+
+       </div>
+       </div>
+       <!-- /.container-fluid -->
+
+
+
+<div class="modal fade" id="myModal"   role="dialog" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+       <div class="modal-content bg-primary">
+           <div class="modal-header">
+               <h5 class="modal-title" id="exampleModalLabel">Book Now </h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                   <span aria-hidden="true">&times;</span>
+               </button>
+           </div>
+            
+               <div class="modal-body">
+                  
+        <form action="/save_booking" method="post"  >
+           <div class="row">
+               <div class="col-lg-12">
+               <label class="text-white">Customer Name</label>
+               <input type="text"  class="form-control" name="c_name" id="p_name">
+            </div>
+            <div class="col-lg-12">
+               <label class="text-white">Customer Phone</label>
+               <input type="text"  class="form-control" name="c_phone" id="p_phone">
+            </div>
+        
+            <div class="col-lg-12">
+               <label class="text-white">Flight</label>
+                <select class="form-control" style="width: 100%;" id="doctor_id" name="doctor_id">
+                    <% doct.forEach(function(d){ %>
+                        <option value="<%= d._id%>"> <%=d.name%> </option>
+                    <% })%>
+              
+                </select>
+            </div>
+            <div class="col-lg-12">
+                <label class="text-white">Source</label>
+                <input type="text"  class="form-control" name="source" id="p_phone">
+             </div>
+             <div class="col-lg-12">
+                <label class="text-white">Destination</label>
+                <input type="text"  class="form-control" name="destination" id="p_phone">
+             </div>
+             <div class="col-lg-12">
+                <label class="text-white">Amount</label>
+                <input type="text"  class="form-control" name="amount" id="p_phone">
+             </div>
+         
+         
+          </div> 
+          <div class="modal-footer"> 
+           <button type="submit" class="btn btn-warning">Save </button>
+       </div>
+   </form>
+       
+               </div>
+             
+           
+       </div>
+   </div>
+</div>
+
+   
+<div class="modal fade" id="editModal"   role="dialog" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+       <div class="modal-content bg-primary">
+           <div class="modal-header">
+               <h5 class="modal-title" id="exampleModalLabel">Edit Customer </h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                   <span aria-hidden="true">&times;</span>
+               </button>
+           </div>
+            
+               <div class="modal-body">
+                  
+        <form action="/edit_customer" method="post"  >
+           <input type="hidden" name="_id" id="_id">
+           <div class="row">
+            <div class="col-lg-12">
+                <label class="text-white">Customer Name</label>
+                <input type="text"  class="form-control" name="c_name" id="ps_name">
+             </div>
+             <div class="col-lg-12">
+                <label class="text-white">Customer Phone</label>
+                <input type="text"  class="form-control" name="c_phone" id="ps_phone">
+             </div>
+         
+             <div class="col-lg-12">
+                <label class="text-white">Flight</label>
+                 <select class="form-control" style="width: 100%;" id="doctor_id" name="doctor_id">
+                     <% doct.forEach(function(d){ %>
+                         <option value="<%= d._id%>"> <%=d.name%> </option>
+                     <% })%>
+               
+                 </select>
+             </div>
+             <div class="col-lg-12">
+                 <label class="text-white">Source</label>
+                 <input type="text"  class="form-control" name="source" id="s_phone">
+              </div>
+              <div class="col-lg-12">
+                 <label class="text-white">Destination</label>
+                 <input type="text"  class="form-control" name="destination" id="d_phone">
+              </div>
+              <div class="col-lg-12">
+                 <label class="text-white">Amount</label>
+                 <input type="text"  class="form-control" name="amount" id="a_phone">
+              </div>
+        
+         
+
+         
+         
+          </div> 
+          <div class="modal-footer"> 
+           <button type="submit" class="btn btn-warning">Save </button>
+       </div>
+   </form>
+       
+               </div>
+             
+           
+       </div>
+   </div>
+</div>
+</div>
+
+<script>
+   function show_mode(){ 
+       $('#myModal').modal('show');
+   }
+   function edit(_id,p_name,p_phone,doctor,s_name,d_name,a_name){ 
+       $('#_id').val(_id)
+       $('#ps_name').val(p_name)
+       $('#ps_phone').val(p_phone)
+       $('#doctor_id').val(doctor)
+       $('#s_phone').val(s_name)
+       $('#d_phone').val(d_name)
+       $('#a_phone').val(a_name)
+       $('#editModal').modal('show');
+   }
+   
+       </script>
+
+<!-- Footer -->
+<footer class="sticky-footer bg-white">
+   <div class="container my-auto">
+       <div class="copyright text-center my-auto">
+           <span>Copyright &copy; Your Website 2021</span>
+       </div>
+   </div>
+</footer>
+<!-- End of Footer -->
+
+</div>
+<!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+
+<!-- Bootstrap core JavaScript-->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Core plugin JavaScript-->
+<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="js/sb-admin-2.min.js"></script>
+
+<!-- Page level plugins -->
+<script src="vendor/chart.js/Chart.min.js"></script>
+
+<!-- Page level custom scripts -->
+<script src="js/demo/chart-area-demo.js"></script>
+<script src="js/demo/chart-pie-demo.js"></script>
