@@ -63,7 +63,4 @@ git i express mongoose ejs mongoose-sequence
 ![image](https://user-images.githubusercontent.com/101409254/217920315-450e8bf1-7f39-45c1-b3df-e72347bff211.png)
 
 
-### TEST
-![image](https://github.com/user-attachments/assets/525ffc18-94c0-466c-93c3-b9dad48eabad)
-
 
